@@ -7,6 +7,10 @@ import { checkSessionIdExists } from "../middlewares/check-session-id-exists"
 // criando uma transação
 
 export async function transactionsRoutes(app: FastifyInstance) {
+    // Middleware global
+    //app.addHook('preHandler', async (req, res) => {
+    //    console.log(`[${req.method}], ${req.url}`)
+    //})
 
     // Utilizando Zod para validar os daods enviados
 
