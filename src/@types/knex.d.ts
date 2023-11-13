@@ -9,6 +9,13 @@ declare module 'knex/types/tables' {
             amount: number,
             created_at: string,
             session_id?: string
+        },
+
+        users: {
+            id: string,
+            name: string,
+            email: string,
+            session_id?: string
         }
     }
 }
