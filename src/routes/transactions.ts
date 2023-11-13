@@ -14,7 +14,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     // Utilizando Zod para validar os daods enviados
 
-    app.get('/', { preHandler: [checkSessionIdExists] }, async (req) => {
+    app.get('/transactions', { preHandler: [checkSessionIdExists] }, async (req) => {
         const { sessionId } = req.cookies
 
         const transactions = await knex('transactions')
@@ -31,7 +31,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
     // Validando a existencia do uuid utilizando Zod
     // .first() para o valor não ser retornado como array
 
-    app.get('/:id', { preHandler: [checkSessionIdExists] }, async (req) => {
+    app.get('/transactions/:id', { preHandler: [checkSessionIdExists] }, async (req) => {
         const { sessionId } = req.cookies
         const getTransactionParamsSchema = z.object({
             id: z.string().uuid()
@@ -47,7 +47,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
         return { transaction }
     })
 
-    app.get('/summary', { preHandler: [checkSessionIdExists] }, async (req) => {
+    app.get('/transactions/summary', { preHandler: [checkSessionIdExists] }, async (req) => {
         const { sessionId } = req.cookies
         const summary = await knex('transactions')
         .where('session_id', sessionId)
@@ -61,7 +61,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     // Cookies -> Formas de manter contextos entre requisições
 
-    app.post('/', async (req, res) => {
+    app.post('/transactions', async (req, res) => {
         const createTransactionBodySchema = z.object({
             title: z.string(),
             amount: z.number(),
